@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<Context path="/">
+    <Resource
+            name="jdbc/db"
+            auth="Container"
+            type="com.mysql.cj.jdbc.MysqlDataSource"
+            factory="com.mysql.cj.jdbc.MysqlDataSourceFactory"
+            user="dev"
+            databaseName="crispy_tofu"
+            password="Open0pen"
+            url="jdbc:mysql://localhost:3306/crispy_tofu"
+    />
+
+</Context>
