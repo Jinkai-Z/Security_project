@@ -1,5 +1,6 @@
 package com.example.servlet;
 
+import com.example.security.SecureToken;
 import com.example.service.PersonService;
 import com.sample.Person;
 import javax.servlet.ServletException;
@@ -9,6 +10,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import java.io.IOException;
+import javax.servlet.http.Cookie;
 /**
  * web endpoint for login
  * @author Jinkai Zhang
@@ -26,8 +28,17 @@ public class LoginServlet extends HttpServlet {
             req.setAttribute("error", "Email and Password not match.");
             req.getRequestDispatcher("index.jsp").forward(req, resp);
         } else {
-            req.getSession().setAttribute("personId", person.getId());
-            resp.sendRedirect("dashboard.jsp");
+            try {
+                var token = new SecureToken.SecureTokenBuilder("crispy", Long.toString(person.getId()), "users");
+                String auth = token.build().toString();
+
+                resp.addCookie(new Cookie("auth", auth));
+                req.getSession().setAttribute("personId", person.getId());
+                resp.sendRedirect("dashboard.jsp");
+            } catch (Exception e) {
+                req.setAttribute("error", "Authentication error.");
+                req.getRequestDispatcher("index.jsp").forward(req, resp);
+            }
 //            req.getRequestDispatcher("dashboard.jsp").forward(req, resp);
         }
     }
