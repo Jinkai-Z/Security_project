@@ -1,9 +1,9 @@
 package com.example.filter;
 
-import jakarta.servlet.*;
-import jakarta.servlet.annotation.WebFilter;
-import jakarta.servlet.http.HttpServletRequest;
-import jakarta.servlet.http.HttpServletResponse;
+import javax.servlet.*;
+import javax.servlet.annotation.WebFilter;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 
 import java.io.IOException;
 /**
@@ -12,6 +12,11 @@ import java.io.IOException;
  */
 @WebFilter(urlPatterns = "/*")
 public class LoginCheckerFilter implements Filter {
+    @Override
+    public void init(FilterConfig filterConfig) throws ServletException {
+
+    }
+
     @Override
     public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain) throws IOException, ServletException {
         final HttpServletRequest req = (HttpServletRequest) request;
@@ -24,5 +29,10 @@ public class LoginCheckerFilter implements Filter {
             }
         }
         chain.doFilter(request, response);
+    }
+
+    @Override
+    public void destroy() {
+
     }
 }

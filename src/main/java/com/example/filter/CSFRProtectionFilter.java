@@ -1,8 +1,8 @@
 package com.example.filter;
 
-import jakarta.servlet.*;
-import jakarta.servlet.annotation.WebFilter;
-import jakarta.servlet.http.HttpServletRequest;
+import javax.servlet.*;
+import javax.servlet.annotation.WebFilter;
+import javax.servlet.http.HttpServletRequest;
 
 import java.io.IOException;
 /**
@@ -11,6 +11,11 @@ import java.io.IOException;
  */
 @WebFilter(urlPatterns = "/*")
 public class CSFRProtectionFilter implements Filter {
+    @Override
+    public void init(FilterConfig filterConfig) throws ServletException {
+
+    }
+
     @Override
     public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain) throws IOException, ServletException {
         final HttpServletRequest httpServletRequest = (HttpServletRequest) request;
@@ -25,5 +30,10 @@ public class CSFRProtectionFilter implements Filter {
         } else {
             chain.doFilter(request, response);
         }
+    }
+
+    @Override
+    public void destroy() {
+
     }
 }
