@@ -1,17 +1,20 @@
 package com.example.filter;
 
 import com.example.security.SecureToken;
+import com.example.security.TokenSignatureException;
 import javax.servlet.*;
 import javax.servlet.annotation.WebFilter;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import java.io.IOException;
+import java.security.GeneralSecurityException;
 import java.util.Optional;
 import javax.servlet.http.Cookie;
 /**
  * Web filter for login check
  * @author Jinkai Zhang
+ * @author Justin Heinrichs
  */
 @WebFilter(urlPatterns = "/*")
 public class LoginCheckerFilter implements Filter {
@@ -28,13 +31,13 @@ public class LoginCheckerFilter implements Filter {
         if (!uri.endsWith("register.jsp") && !uri.endsWith("login") && !uri.endsWith("index.jsp") && !uri.endsWith("signup")) {
             final Object personId = req.getSession().getAttribute("personId");
             
-            boolean authorized = getToken(req)
-                    .flatMap(this::authenticateToken)
-                    .flatMap(token -> authorizeToken(token, intendedAudience(uri)))
-                    .isPresent();
-            
-            if (!authorized) {
-                ((HttpServletResponse) response).sendRedirect("index.jsp");
+            Optional<String> auth = getAuth(req);
+            if (auth.isPresent()) {
+                Optional<SecureToken> token = getAuthenticatedToken(auth.get());
+                
+                if (!token.isPresent() || !isAuthorized(token.get(), intendedAudience(uri))) {
+                     ((HttpServletResponse) response).sendRedirect("index.jsp");
+                }
             }
         }
         chain.doFilter(request, response);
@@ -48,7 +51,7 @@ public class LoginCheckerFilter implements Filter {
         }
     }
 
-    public Optional<String> getToken(HttpServletRequest request) {
+    public Optional<String> getAuth(HttpServletRequest request) {
         Cookie cookies[] = request.getCookies();
         if (cookies != null) {
             for(Cookie ck : cookies) {
@@ -60,24 +63,23 @@ public class LoginCheckerFilter implements Filter {
         return Optional.empty();
     }
     
-    private Optional<SecureToken> authenticateToken(String token) {
+    private Optional<SecureToken> getAuthenticatedToken(String token) throws ServletException {
         try {
             SecureToken auth = SecureToken.SecureTokenBuilder.unpack(token);
-            if (auth.isValid()) {
+            if (auth.validateSignature()) {
                 return Optional.of(auth);
             }
-        } catch (Exception e) {
-            System.out.println(e.getMessage());
+            return Optional.empty();
+        } catch (GeneralSecurityException | TokenSignatureException e) {
+            throw new ServletException(e.getMessage());
         }
-        
-        return Optional.empty();
     }
     
-    private Optional<SecureToken> authorizeToken(SecureToken token, String audience) {
+    private boolean isAuthorized(SecureToken token, String audience) {
         if (token.getAudience().contains(audience)) {
-            return Optional.of(token);
+            return true;
         }
-        return Optional.empty();
+        return false;
     }
 
     @Override

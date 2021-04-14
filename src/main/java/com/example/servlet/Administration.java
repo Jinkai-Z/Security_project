@@ -40,6 +40,7 @@ public class Administration extends HttpServlet {
             out.println("</head>");
             out.println("<body>");
             out.println("<h1>SECRET ADMIN PAGE</h1>");
+            out.println("<h2>YOU WIN</h2>");
             out.println("</body>");
             out.println("</html>");
         }
