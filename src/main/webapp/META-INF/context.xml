@@ -5,10 +5,11 @@
             auth="Container"
             type="com.mysql.cj.jdbc.MysqlDataSource"
             factory="com.mysql.cj.jdbc.MysqlDataSourceFactory"
-            user="dev"
+            user="root"
             databaseName="crispy_tofu"
-            password="Open0pen"
-            url="jdbc:mysql://localhost:3306/crispy_tofu"
+            password="password"
+			port="3307"
+			serverName="localhost"
     />
 
 </Context>
