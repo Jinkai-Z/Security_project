@@ -19,8 +19,7 @@ public class CSFRProtectionFilter implements Filter {
     @Override
     public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain) throws IOException, ServletException {
         final HttpServletRequest httpServletRequest = (HttpServletRequest) request;
-        if ("POST".equalsIgnoreCase(httpServletRequest.getMethod())
-                || ((HttpServletRequest) request).getRequestURI().endsWith("/logout")) {
+        if ("POST".equalsIgnoreCase(httpServletRequest.getMethod())) {
             final String csrfToken = request.getParameter("csrfToken");
             if (!httpServletRequest.getSession().getAttribute("csrfToken").equals(csrfToken)) {
                 response.getWriter().write("Illegal Access. csrfToken error.");

@@ -6,6 +6,6 @@
     <nav>
         <a href="dashboard.jsp">Dashboard</a>
         <a href="profile.jsp">Profile</a>
-        <a href="logout?csrfToken=${sessionScope.csrfToken}">Logout</a>
+        <a href="logout">Logout</a>
     </nav>
 </header>
