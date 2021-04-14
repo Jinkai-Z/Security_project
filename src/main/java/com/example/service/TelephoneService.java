@@ -7,7 +7,10 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
-
+/**
+ * Telephone Service
+ * @author Jinkai Zhang
+ */
 public class TelephoneService {
 
     public Telephone addTelephone(Long contactId, String telephone) {

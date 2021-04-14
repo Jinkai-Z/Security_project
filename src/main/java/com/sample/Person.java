@@ -1,6 +1,10 @@
 package com.sample;
 
 
+/**
+ * represent a person
+ * @author Jinkai Zhang
+ */
 public class Person {
 
   private long id;

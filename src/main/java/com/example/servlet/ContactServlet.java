@@ -11,6 +11,10 @@ import jakarta.servlet.http.HttpServletResponse;
 
 import java.io.IOException;
 
+/**
+ * web endpoint for add contact
+ * @author Jinkai Zhang
+ */
 @WebServlet(urlPatterns = {"/contact_add"})
 public class ContactServlet extends HttpServlet {
     @Override

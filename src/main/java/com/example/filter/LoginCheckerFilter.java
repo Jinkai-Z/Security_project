@@ -6,7 +6,10 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 
 import java.io.IOException;
-
+/**
+ * Web filter for login check
+ * @author Jinkai Zhang
+ */
 @WebFilter(urlPatterns = "/*")
 public class LoginCheckerFilter implements Filter {
     @Override

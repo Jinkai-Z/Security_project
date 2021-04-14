@@ -8,7 +8,10 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 
 import java.io.IOException;
-
+/**
+ * web endpoint for delete contact
+ * @author Jinkai Zhang
+ */
 @WebServlet(urlPatterns = "/contact_del")
 public class DeleteContactServlet extends HttpServlet {
     ContactService contactService = new ContactService();

@@ -4,6 +4,7 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
 /**
  * Using Bcrypt Service to encrypt and decrypt password
+ * @author Jinkai Zhang
  */
 public class BcryptService {
     private BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();

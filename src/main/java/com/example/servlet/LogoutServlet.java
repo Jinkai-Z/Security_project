@@ -7,7 +7,10 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 
 import java.io.IOException;
-
+/**
+ * web endpoint for logout
+ * @author Jinkai Zhang
+ */
 @WebServlet(urlPatterns = "/logout")
 public class LogoutServlet extends HttpServlet {
     @Override

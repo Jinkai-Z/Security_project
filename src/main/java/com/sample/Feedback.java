@@ -1,6 +1,9 @@
 package com.sample;
 
-
+/**
+ * represent a feedback
+ * @author Jinkai Zhang
+ */
 public class Feedback {
 
   private long id;

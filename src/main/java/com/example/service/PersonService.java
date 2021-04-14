@@ -4,7 +4,10 @@ import com.example.dao.ConnectionFactory;
 import com.sample.Person;
 
 import java.sql.*;
-
+/**
+ * Person Service
+ * @author Jinkai Zhang
+ */
 public class PersonService {
     private BcryptService bcryptService = new BcryptService();
 

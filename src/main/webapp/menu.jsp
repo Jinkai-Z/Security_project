@@ -1,3 +1,6 @@
+<%--
+  User: Jinkai Zhang
+--%>
 <header>
     <h1>Contract Management App</h1>
     <nav>

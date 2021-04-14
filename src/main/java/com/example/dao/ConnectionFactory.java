@@ -7,7 +7,10 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import java.sql.Statement;
-
+/**
+ * Database utils
+ * @author Jinkai Zhang
+ */
 public class ConnectionFactory {
     private static DataSource dataSource;
 

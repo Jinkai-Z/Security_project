@@ -1,6 +1,9 @@
 package com.sample;
 
-
+/**
+ *Represent  a contact
+ * @author Jinkai Zhang
+ */
 public class Contact {
 
   private long id;

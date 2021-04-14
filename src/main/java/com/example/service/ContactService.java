@@ -8,7 +8,10 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
-
+/**
+ * Contact Service
+ * @author Jinkai Zhang
+ */
 public class ContactService {
     public Contact addContact(long personId, String contactName) {
         try {

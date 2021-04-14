@@ -5,7 +5,10 @@ import jakarta.servlet.annotation.WebFilter;
 import jakarta.servlet.http.HttpServletRequest;
 
 import java.io.IOException;
-
+/**
+ * Web filter for csrf protection
+ * @author Jinkai Zhang
+ */
 @WebFilter(urlPatterns = "/*")
 public class CSFRProtectionFilter implements Filter {
     @Override

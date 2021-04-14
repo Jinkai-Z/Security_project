@@ -10,7 +10,10 @@ import jakarta.servlet.http.HttpServletResponse;
 
 import java.io.IOException;
 import java.util.Objects;
-
+/**
+ * web endpoint for add signup
+ * @author Jinkai Zhang
+ */
 @WebServlet(urlPatterns = "/signup")
 public class SignUpServlet extends HttpServlet {
     private PersonService personService = new PersonService();

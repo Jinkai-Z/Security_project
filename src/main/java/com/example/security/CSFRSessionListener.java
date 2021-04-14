@@ -5,7 +5,10 @@ import jakarta.servlet.http.HttpSessionEvent;
 import jakarta.servlet.http.HttpSessionListener;
 
 import java.util.UUID;
-
+/**
+ * csrf token
+ * @author Jinkai Zhang
+ */
 @WebListener
 public class CSFRSessionListener implements HttpSessionListener {
     @Override

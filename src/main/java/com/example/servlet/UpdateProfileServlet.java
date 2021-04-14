@@ -10,7 +10,10 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 
 import java.io.IOException;
-
+/**
+ * web endpoint for update person
+ * @author Jinkai Zhang
+ */
 @WebServlet(urlPatterns = "/update_person")
 public class UpdateProfileServlet extends HttpServlet {
     PersonService personService = new PersonService();
