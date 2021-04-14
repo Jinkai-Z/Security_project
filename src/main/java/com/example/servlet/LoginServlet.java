@@ -14,6 +14,8 @@ import javax.servlet.http.Cookie;
 /**
  * web endpoint for login
  * @author Jinkai Zhang
+ * @author Justin Heinrichs
+ * @version 1.1
  */
 @WebServlet(urlPatterns = "/login")
 public class LoginServlet extends HttpServlet {

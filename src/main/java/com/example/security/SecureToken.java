@@ -19,7 +19,10 @@ import javax.crypto.spec.SecretKeySpec;
 import org.json.JSONObject;
 
 /**
- * Super secure web token class
+ * Super secure web token class based on the JSON Web Token specification
+ * 
+ * @author Justin Heinrichs
+ * @version 1.0
  */
 public class SecureToken 
 {
