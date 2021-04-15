@@ -8,6 +8,9 @@ package com.example.security;
 import org.json.JSONArray;
 
 import java.nio.charset.StandardCharsets;
+import java.security.GeneralSecurityException;
+import java.security.InvalidKeyException;
+import java.security.NoSuchAlgorithmException;
 import java.util.ArrayList;
 import java.util.Base64;
 import java.util.List;
@@ -83,25 +86,22 @@ public class SecureToken
         return this.payload.getLong("iat");
     }
 
-    public boolean isValid() {
-        try {
-            System.out.println(hashedSignature(this.header, this.payload));
-            return this.signature.equals(hashedSignature(this.header, this.payload));
-        } catch (Exception e) {
-            return false;
+    public boolean validateSignature() throws TokenSignatureException, GeneralSecurityException {   
+        if (this.signature.equals(hashedSignature(this.header, this.payload))) {
+            return true;
         }
+        
+        throw new TokenSignatureException("Invalid secret, expected issue date");
     }
 
-    private static String hashedSignature(JSONObject header, JSONObject payload) throws Exception {
+    private static String hashedSignature(JSONObject header, JSONObject payload) throws GeneralSecurityException{
         String data = String.format("%s.%s", encodeJSON.apply(header), encodeJSON.apply(payload));
         String secret = payload.get("iat").toString();
-
-        System.out.println(header.getString("alg").getBytes());
         
         return encryptedString(header.getString("alg"), data, secret);
     }
 
-    private static String encryptedString(String algorithm, String data, String secret) throws Exception {
+    private static String encryptedString(String algorithm, String data, String secret) throws GeneralSecurityException{
         switch (algorithm) {
             case "H256":
                 return hash256(data, secret);
@@ -110,7 +110,7 @@ public class SecureToken
         }
     }
 
-    private static String hash256(String input, String secret) throws Exception {      
+    private static String hash256(String input, String secret) throws NoSuchAlgorithmException, InvalidKeyException {      
         Mac mac = Mac.getInstance("HmacSHA256");
 
         SecretKeySpec secretKey = new SecretKeySpec(secret.getBytes(), "HmacSHA256");
@@ -137,6 +137,7 @@ public class SecureToken
         public SecureTokenBuilder(String iss, String sub, String ...auds) {
             JSONObject header = new JSONObject();
             header.put("alg", "H256");
+            header.put("typ", "JWT");
 
             JSONArray aud = new JSONArray();
             for (String audience : auds) {
@@ -148,7 +149,6 @@ public class SecureToken
             payload.put("sub", sub);
             payload.put("aud", aud);
             payload.put("iat", System.currentTimeMillis());
-            System.out.println(payload);
 
             this.header = header;
             this.payload = payload;
